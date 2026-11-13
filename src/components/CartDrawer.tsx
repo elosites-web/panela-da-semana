@@ -88,7 +88,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 Sua panela está vazia
               </h3>
               <p className="text-xs sm:text-sm text-[#5C675B] max-w-xs">
-                Selecione um dos pratos frescos do nosso cardápio semanal para montar seu almoço.
+                Selecione uma das sugestões ilustrativas do cardápio semanal para simular seu pedido.
               </p>
             </div>
             <button

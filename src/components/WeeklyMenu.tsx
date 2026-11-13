@@ -16,12 +16,12 @@ const DAYS_OF_WEEK: { key: DayOfWeek; label: string; short: string; dayTag: stri
   { key: 'terca', label: 'Terça-feira', short: 'Ter', dayTag: 'Conforto & carne de panela' },
   { key: 'quarta', label: 'Quarta-feira', short: 'Qua', dayTag: 'Clássico afetivo' },
   { key: 'quinta', label: 'Quinta-feira', short: 'Qui', dayTag: 'Equilíbrio & omelete' },
-  { key: 'sexta', label: 'Sexta-feira', short: 'Sex', dayTag: 'Plant-based & frescor' },
+  { key: 'sexta', label: 'Sexta-feira', short: 'Sex', dayTag: 'Plant-based & leveza' },
 ];
 
 const CATEGORIES: { key: DishCategory; label: string }[] = [
   { key: 'todos', label: 'Todos os Pratos' },
-  { key: 'tradicionais', label: 'Tradicionais Caseiros' },
+  { key: 'tradicionais', label: 'Tradicionais' },
   { key: 'leves', label: 'Leves & Saudáveis' },
   { key: 'vegetarianos', label: 'Vegetarianos' },
 ];
@@ -254,7 +254,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                     {/* Ingredients summary */}
                     <div className="mt-4 pt-3 border-t border-[#EFE8DA]">
                       <span className="text-[11px] font-bold uppercase tracking-wider text-[#344B35] block mb-1.5">
-                        Ingredientes em destaque:
+                        Composição ilustrativa:
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {dish.ingredients.slice(0, 4).map((ing, idx) => (

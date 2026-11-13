@@ -45,14 +45,14 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
             </div>
 
             <p className="text-base sm:text-lg text-[#5C675B] leading-relaxed max-w-xl">
-              Refeições preparadas com carinho, ingredientes selecionados e aquele sabor de comida de verdade. Escolha seus pratos e receba em casa.
+              Proposta de cardápio semanal pensada para levar praticidade e comida de verdade à rotina. Explore as sugestões ilustrativas de pratos e simule seu pedido.
             </p>
 
             {/* Feature highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm font-medium text-[#344B35]">
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
-                <span>Cardápio rotativo com sabor caseiro</span>
+                <span>Proposta de cardápio rotativo semanal</span>
               </div>
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />

@@ -7,7 +7,7 @@ export const BrandValues: React.FC = () => {
   const pillars = [
     {
       icon: Heart,
-      title: 'Tempero caseiro na proposta',
+      title: 'Proposta de temperos tradicionais',
       desc: 'Receitas planejadas em torno de temperos tradicionais do dia a dia, como alho, cebola, ervas e caldos culinários.',
     },
     {
@@ -36,7 +36,7 @@ export const BrandValues: React.FC = () => {
             Proposta Culinária do Projeto
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#252B24] tracking-tight">
-            Um conceito de comida caseira pensado para o dia a dia
+            Um conceito culinário pensado para o dia a dia
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#5C675B]">
             A proposta da Panela da Semana reúne variedade semanal, personalização simples e apresentação cuidada em uma demonstração comercial.
@@ -77,7 +77,7 @@ export const BrandValues: React.FC = () => {
               Referências visuais do estilo de cozinha
             </h3>
             <p className="text-xs sm:text-sm text-[#EFE8DA] mt-2">
-              Imagens ilustrativas que traduzem a estética caseira e o cuidado visual da proposta.
+              Imagens ilustrativas que traduzem a estética e o cuidado visual da proposta.
             </p>
           </ScrollReveal>
 
@@ -105,7 +105,7 @@ export const BrandValues: React.FC = () => {
                       {dish.description}
                     </p>
                   </div>
-                  <span className="text-[10px] uppercase font-bold text-[#C96F4A] tracking-wider mt-3">
+                  <span className="text-[10px] uppercase font-bold text-[#F5B935] tracking-wider mt-3">
                     Ilustração fotográfica do cardápio
                   </span>
                 </div>

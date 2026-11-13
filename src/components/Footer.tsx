@@ -35,11 +35,11 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
             </div>
 
             <p className="text-xs text-[#EFE8DA]/70 leading-relaxed max-w-sm">
-              Proposta conceitual de cardápio rotativo semanal com foco em comida caseira, personalização de pratos e simulação de pedidos.
+              Proposta conceitual de cardápio rotativo semanal com foco em culinária cotidiana, personalização de pratos e simulação de pedidos.
             </p>
 
             <div className="pt-2">
-              <span className="inline-flex items-center gap-1.5 text-xs text-[#C96F4A] bg-[#344B35]/60 px-3 py-1.5 rounded-full border border-[#C96F4A]/30">
+              <span className="inline-flex items-center gap-1.5 text-xs text-[#F5B935] bg-[#344B35]/60 px-3 py-1.5 rounded-full border border-[#C96F4A]/30">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{BRAND_CONFIG.prototypeNotice}</span>
               </span>

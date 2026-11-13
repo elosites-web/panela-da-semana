@@ -45,7 +45,7 @@ export const STANDARD_SIDES = [
   { id: 'arroz_integral', name: 'Arroz integral com sementes' },
   { id: 'feijao_carioca', name: 'Feijão carioca cremoso temperado' },
   { id: 'feijao_preto', name: 'Feijão preto com louro e ervas' },
-  { id: 'pure_batata', name: 'Purê de batata artesanal aveludado' },
+  { id: 'pure_batata', name: 'Purê de batata aveludado' },
   { id: 'legumes_salteados', name: 'Legumes salteados na manteiga e azeite' },
   { id: 'farofa_crocante', name: 'Farofa crocante de mandioca na manteiga' },
   { id: 'salada_fresca', name: 'Mix de folhas verdes com tomatinhos' },
@@ -56,10 +56,10 @@ export const WEEKLY_DISHES: Dish[] = [
     id: 'segunda-frango-grelhado',
     day: 'segunda',
     dayLabel: 'Segunda-feira',
-    name: 'Filé de Frango Grelhado Artesanal',
+    name: 'Filé de Frango Grelhado com Ervas',
     tagline: 'Leve, dourado e suculento para começar a semana com equilíbrio.',
     description:
-      'Filés de peito de frango marinados em ervas finas e limão siciliano, grelhados no ponto com crostinha dourada. Acompanhado de arroz soltinho, feijão temperado e legumes salteados.',
+      'Filés de peito de frango marinados em ervas finas e limão siciliano, grelhados até dourar. Sugestão acompanhada de arroz soltinho, feijão temperado e legumes salteados.',
     ingredients: [
       'Peito de frango em filés',
       'Ervas (tomilho e alecrim)',
@@ -90,7 +90,7 @@ export const WEEKLY_DISHES: Dish[] = [
     name: 'Carne de Panela com Molho Ferrugem',
     tagline: 'Cozimento lento, carne macia que desfia na colher e molho encorpado.',
     description:
-      'Cortes bovinos dourados e cozidos lentamente em fogo brando com cebolas caramelizadas, cenouras macias, batatinhas e cheiro-verde. Conforto e sabor caseiro para a terça-feira.',
+      'Sugestão de cortes bovinos dourados e cozidos lentamente com cebolas caramelizadas, cenouras macias, batatinhas e cheiro-verde. Uma proposta reconfortante para a terça-feira.',
     ingredients: [
       'Músculo bovino ou acém',
       'Cenoura e batatas cozidas',
@@ -121,7 +121,7 @@ export const WEEKLY_DISHES: Dish[] = [
     name: 'Carne Moída Refogada com Banana e Farofa',
     tagline: 'O clássico brasileiro afetivo pensado para o meio da semana.',
     description:
-      'Patinho moído refogado no alho dourado, tomate maduro, azeitonas verdes picadinhas e cheiro-verde. Servido com arroz, feijão preto ou carioca, banana-da-terra grelhada e farofa crocante.',
+      'Patinho moído refogado com alho dourado, tomate maduro, azeitonas verdes e cheiro-verde. Composição servida com arroz, feijão preto ou carioca, banana-da-terra grelhada e farofa crocante.',
     ingredients: [
       'Patinho moído refogado',
       'Azeitonas verdes fatiadas',
@@ -152,7 +152,7 @@ export const WEEKLY_DISHES: Dish[] = [
     name: 'Omelete Dourada com Queijo Minas e Tomatinhos',
     tagline: 'Fofa e dourada, recheada com queijo derretido, espinafre e tomatinhos.',
     description:
-      'Ovos batidos com ervas, recheados com queijo minas padrão derretido, tomatinhos cereja assados e espinafre salteado. Acompanha arroz integral e salada verde com toque cítrico.',
+      'Ovos batidos com ervas, recheados com queijo minas padrão derretido, tomatinhos cereja assados e espinafre salteado. Sugestão acompanhada de arroz integral e salada verde.',
     ingredients: [
       'Ovos batidos com ervas',
       'Queijo minas padrão',
@@ -183,7 +183,7 @@ export const WEEKLY_DISHES: Dish[] = [
     name: 'Legumes Assados com Grão-de-Bico ao Alecrim',
     tagline: 'Cores vibrantes, textura assada caramelizada e combinação aromática.',
     description:
-      'Mix de abóbora cabotiá, abobrinha, berinjela e pimentões assados lentamente no azeite com alho inteiro e alecrim. Servido com grão-de-bico temperado e arroz integral aromático.',
+      'Mix de abóbora cabotiá, abobrinha, berinjela e pimentões assados no azeite com alho e alecrim. Composição servida com grão-de-bico temperado e arroz integral aromático.',
     ingredients: [
       'Abóbora cabotiá assada',
       'Grão-de-bico macio salteado',
