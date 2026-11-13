@@ -1,9 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { X, Check, MessageSquare, AlertCircle, ShieldCheck, MapPin, CreditCard, User } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  X,
+  Check,
+  MessageSquare,
+  AlertCircle,
+  ShieldCheck,
+  MapPin,
+  CreditCard,
+  User,
+  ExternalLink,
+  Copy,
+} from 'lucide-react';
 import { BRAND_CONFIG } from '../data/config';
 import { CartItem, CheckoutForm } from '../types';
 import { calculateCartTotals, formatCurrency } from '../utils/pricing';
-import { generateWhatsAppLink } from '../utils/whatsapp';
+import {
+  attemptOpenWhatsAppLink,
+  buildWhatsAppHandoffData,
+  WhatsAppOpenResult,
+} from '../utils/whatsapp';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -31,8 +46,28 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     generalNotes: '',
   });
 
+  interface HandoffFeedback {
+    status: WhatsAppOpenResult;
+    link: string;
+    message: string;
+    copied: boolean;
+  }
+
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [orderSentNotification, setOrderSentNotification] = useState(false);
+  const [handoffFeedback, setHandoffFeedback] = useState<HandoffFeedback | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+
+  // Clear stale feedback when modal closes/reopens or when cart items change
+  useEffect(() => {
+    if (!isOpen) {
+      setHandoffFeedback(null);
+      setErrors({});
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    setHandoffFeedback(null);
+  }, [items]);
 
   // Handle escape key
   useEffect(() => {
@@ -50,6 +85,19 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     deliveryFeeCents
   );
 
+  const updateField = <K extends keyof CheckoutForm>(
+    field: K,
+    value: CheckoutForm[K]
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: '' }));
+    }
+    if (handoffFeedback) {
+      setHandoffFeedback(null);
+    }
+  };
+
   // Phone masking
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let raw = e.target.value.replace(/\D/g, '');
@@ -62,10 +110,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     if (raw.length > 7) {
       formatted = `(${raw.slice(0, 2)}) ${raw.slice(2, 7)}-${raw.slice(7)}`;
     }
-    setFormData((prev) => ({ ...prev, customerPhone: formatted }));
-    if (errors.customerPhone) {
-      setErrors((prev) => ({ ...prev, customerPhone: '' }));
-    }
+    updateField('customerPhone', formatted);
   };
 
   // CEP masking
@@ -77,10 +122,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     if (raw.length > 5) {
       formatted = `${raw.slice(0, 5)}-${raw.slice(5)}`;
     }
-    setFormData((prev) => ({ ...prev, cep: formatted }));
-    if (errors.cep) {
-      setErrors((prev) => ({ ...prev, cep: '' }));
-    }
+    updateField('cep', formatted);
   };
 
   const validate = (): boolean => {
@@ -118,6 +160,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handleSendOrderWhatsApp = () => {
     if (!validate()) {
+      setHandoffFeedback(null);
       return;
     }
 
@@ -129,11 +172,42 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       totalCents,
     };
 
-    const link = generateWhatsAppLink(payload, BRAND_CONFIG.whatsappPhone);
+    const { message, link } = buildWhatsAppHandoffData(
+      payload,
+      BRAND_CONFIG.whatsappPhone
+    );
+    const status = attemptOpenWhatsAppLink(link);
 
-    // Open WhatsApp link in new tab or app
-    window.open(link, '_blank', 'noopener,noreferrer');
-    setOrderSentNotification(true);
+    setHandoffFeedback({
+      status,
+      link,
+      message,
+      copied: false,
+    });
+
+    bodyRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCopyMessage = async () => {
+    if (!handoffFeedback) return;
+    try {
+      await navigator.clipboard.writeText(handoffFeedback.message);
+      setHandoffFeedback((prev) => (prev ? { ...prev, copied: true } : null));
+    } catch {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = handoffFeedback.message;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        setHandoffFeedback((prev) => (prev ? { ...prev, copied: true } : null));
+      } catch {
+        // Ignora falha de área de transferência
+      }
+    }
   };
 
   return (
@@ -168,16 +242,81 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         </div>
 
         {/* Scrollable form body */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-[#252B24]">
-          {orderSentNotification && (
-            <div className="p-4 rounded-2xl bg-[#344B35]/10 border border-[#344B35]/20 text-[#344B35] space-y-2">
-              <div className="flex items-center gap-2 font-bold text-sm">
-                <Check className="w-5 h-5 text-[#344B35]" />
-                <span>Conversa no WhatsApp iniciada!</span>
+        <div
+          ref={bodyRef}
+          className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-[#252B24]"
+        >
+          {handoffFeedback && (
+            <div
+              role={handoffFeedback.status === 'blocked' ? 'alert' : 'status'}
+              aria-live="polite"
+              className={`p-4 rounded-2xl border space-y-3 ${
+                handoffFeedback.status === 'blocked'
+                  ? 'bg-[#C96F4A]/10 border-[#C96F4A]/35 text-[#252B24]'
+                  : 'bg-[#344B35]/10 border-[#344B35]/20 text-[#344B35]'
+              }`}
+            >
+              <div className="flex items-start gap-2.5 font-bold text-sm">
+                {handoffFeedback.status === 'blocked' ? (
+                  <AlertCircle className="w-5 h-5 text-[#C96F4A] shrink-0 mt-0.5" />
+                ) : (
+                  <Check className="w-5 h-5 text-[#344B35] shrink-0 mt-0.5" />
+                )}
+                <span>
+                  {handoffFeedback.status === 'blocked'
+                    ? 'Não foi possível abrir o WhatsApp automaticamente'
+                    : 'Mensagem preparada para o WhatsApp'}
+                </span>
               </div>
+
               <p className="text-xs text-[#5C675B] leading-relaxed">
-                A mensagem estruturada com seu pedido foi preparada. Clique em "Enviar" na janela do WhatsApp para confirmar com nossa equipe. Seu carrinho permanece salvo aqui para sua segurança.
+                {handoffFeedback.status === 'blocked'
+                  ? 'O navegador impediu a abertura automática da nova janela. Nenhuma informação foi perdida e seu carrinho continua salvo. Toque no botão abaixo para abrir o WhatsApp manualmente, revisar os dados e tocar em Enviar para concluir o pedido.'
+                  : 'Mensagem preparada. No WhatsApp, revise os dados e toque em Enviar para concluir o pedido. O pedido não é confirmado até que você envie a mensagem e receba confirmação do estabelecimento.'}
               </p>
+
+              {handoffFeedback.status === 'blocked' ? (
+                <p className="text-[11px] font-semibold text-[#C96F4A]">
+                  O pedido só será confirmado após o envio da mensagem no WhatsApp e a confirmação do estabelecimento.
+                </p>
+              ) : (
+                <p className="text-[11px] text-[#5C675B]">
+                  Seu carrinho permanece salvo aqui caso precise editar ou tentar novamente.
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <a
+                  href={handoffFeedback.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors ${
+                    handoffFeedback.status === 'blocked'
+                      ? 'bg-[#25D366] hover:bg-[#1EBE5D] text-[#0B3B17] shadow-xs'
+                      : 'bg-[#344B35] hover:bg-[#252B24] text-white'
+                  }`}
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>
+                    {handoffFeedback.status === 'blocked'
+                      ? 'Abrir WhatsApp Manualmente'
+                      : 'Abrir WhatsApp novamente'}
+                  </span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyMessage}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-[#EFE8DA] text-[#252B24] hover:bg-[#F8F3E9] transition-colors cursor-pointer"
+                >
+                  <Copy className="w-3.5 h-3.5 text-[#C96F4A]" />
+                  <span>
+                    {handoffFeedback.copied
+                      ? 'Mensagem copiada!'
+                      : 'Copiar mensagem'}
+                  </span>
+                </button>
+              </div>
             </div>
           )}
 
@@ -200,10 +339,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   id="customerName"
                   type="text"
                   value={formData.customerName}
-                  onChange={(e) => {
-                    setFormData({ ...formData, customerName: e.target.value });
-                    if (errors.customerName) setErrors({ ...errors, customerName: '' });
-                  }}
+                  onChange={(e) => updateField('customerName', e.target.value)}
                   placeholder="Ex: Ana Clara Silva"
                   className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A] ${
                     errors.customerName ? 'border-red-400 bg-red-50/50' : 'border-[#EFE8DA]'
@@ -283,10 +419,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   id="street"
                   type="text"
                   value={formData.street}
-                  onChange={(e) => {
-                    setFormData({ ...formData, street: e.target.value });
-                    if (errors.street) setErrors({ ...errors, street: '' });
-                  }}
+                  onChange={(e) => updateField('street', e.target.value)}
                   placeholder="Ex: Rua das Flores"
                   className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A] ${
                     errors.street ? 'border-red-400 bg-red-50/50' : 'border-[#EFE8DA]'
@@ -312,10 +445,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   id="number"
                   type="text"
                   value={formData.number}
-                  onChange={(e) => {
-                    setFormData({ ...formData, number: e.target.value });
-                    if (errors.number) setErrors({ ...errors, number: '' });
-                  }}
+                  onChange={(e) => updateField('number', e.target.value)}
                   placeholder="123"
                   className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A] ${
                     errors.number ? 'border-red-400 bg-red-50/50' : 'border-[#EFE8DA]'
@@ -337,9 +467,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   id="complement"
                   type="text"
                   value={formData.complement}
-                  onChange={(e) =>
-                    setFormData({ ...formData, complement: e.target.value })
-                  }
+                  onChange={(e) => updateField('complement', e.target.value)}
                   placeholder="Apto 42, Bloco B..."
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#EFE8DA] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A]"
                 />
@@ -356,10 +484,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   id="neighborhood"
                   type="text"
                   value={formData.neighborhood}
-                  onChange={(e) => {
-                    setFormData({ ...formData, neighborhood: e.target.value });
-                    if (errors.neighborhood) setErrors({ ...errors, neighborhood: '' });
-                  }}
+                  onChange={(e) => updateField('neighborhood', e.target.value)}
                   placeholder="Ex: Pinheiros"
                   className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A] ${
                     errors.neighborhood ? 'border-red-400 bg-red-50/50' : 'border-[#EFE8DA]'
@@ -384,9 +509,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 id="reference"
                 type="text"
                 value={formData.reference}
-                onChange={(e) =>
-                  setFormData({ ...formData, reference: e.target.value })
-                }
+                onChange={(e) => updateField('reference', e.target.value)}
                 placeholder="Ex: Em frente à praça, portaria lateral..."
                 className="w-full px-3.5 py-2.5 rounded-xl border border-[#EFE8DA] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A]"
               />
@@ -412,10 +535,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                     key={p.id}
                     type="button"
                     onClick={() =>
-                      setFormData({
-                        ...formData,
-                        paymentMethod: p.id as 'pix' | 'dinheiro' | 'cartao',
-                      })
+                      updateField(
+                        'paymentMethod',
+                        p.id as 'pix' | 'dinheiro' | 'cartao'
+                      )
                     }
                     className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                       isSelected
@@ -456,9 +579,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               id="generalNotes"
               rows={2}
               value={formData.generalNotes}
-              onChange={(e) =>
-                setFormData({ ...formData, generalNotes: e.target.value })
-              }
+              onChange={(e) => updateField('generalNotes', e.target.value)}
               placeholder="Ex: avisar quando sair para entrega, interfone quebrado..."
               className="w-full px-3.5 py-2 rounded-xl border border-[#EFE8DA] bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A]"
             />
@@ -506,7 +627,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#1EBE5D] text-[#0B3B17] px-7 py-3.5 rounded-2xl font-bold text-sm sm:text-base shadow-md hover:shadow-lg transition-all hover:scale-102 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#25D366]"
           >
             <MessageSquare className="w-5 h-5 fill-current" />
-            <span>Enviar Pedido pelo WhatsApp</span>
+            <span>Preparar e Abrir WhatsApp</span>
           </button>
         </div>
       </div>

@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildWhatsAppOrderMessage, generateWhatsAppLink } from './whatsapp';
+import {
+  buildWhatsAppOrderMessage,
+  generateWhatsAppLink,
+  buildWhatsAppHandoffData,
+  attemptOpenWhatsAppLink,
+} from './whatsapp';
 import { CheckoutForm, CartItem } from '../types';
 
 test('buildWhatsAppOrderMessage generates complete order message with required details', () => {
@@ -54,4 +59,28 @@ test('buildWhatsAppOrderMessage generates complete order message with required d
   const link = generateWhatsAppLink(payload, '5511995722584');
   assert.ok(link.startsWith('https://wa.me/5511995722584?text='));
   assert.ok(link.includes(encodeURIComponent('Mariana Souza')));
+
+  const handoffData = buildWhatsAppHandoffData(payload, '5511995722584');
+  assert.equal(handoffData.message, message);
+  assert.equal(handoffData.link, link);
+});
+
+test('attemptOpenWhatsAppLink distinguishes initiated handoff from blocked popup', () => {
+  const mockWindow: { opener?: unknown; closed?: boolean } = { opener: { fake: true }, closed: false };
+  const initiatedResult = attemptOpenWhatsAppLink('https://wa.me/5511995722584?text=oi', () => mockWindow);
+  assert.equal(initiatedResult, 'initiated');
+  assert.equal(mockWindow.opener, null);
+
+  const blockedNullResult = attemptOpenWhatsAppLink('https://wa.me/5511995722584?text=oi', () => null);
+  assert.equal(blockedNullResult, 'blocked');
+
+  const blockedClosedResult = attemptOpenWhatsAppLink('https://wa.me/5511995722584?text=oi', () => ({
+    closed: true,
+  }));
+  assert.equal(blockedClosedResult, 'blocked');
+
+  const blockedThrowResult = attemptOpenWhatsAppLink('https://wa.me/5511995722584?text=oi', () => {
+    throw new Error('Popup blocked');
+  });
+  assert.equal(blockedThrowResult, 'blocked');
 });

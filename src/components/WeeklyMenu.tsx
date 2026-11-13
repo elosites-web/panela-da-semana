@@ -193,6 +193,12 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                     loading="lazy"
                   />
 
+                  {/* Subtle bottom scrim for badge contrast over food photography */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 via-black/15 to-transparent"
+                  />
+
                   {/* Day badge */}
                   <div className="absolute top-3.5 left-3.5 bg-[#252B24]/85 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-xs">
                     {dish.dayLabel}
@@ -205,15 +211,26 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                     </div>
                   )}
 
-                  {/* Stories Preview button overlay */}
-                  <button
-                    onClick={() => onOpenDishStories(dish.id)}
-                    aria-label={`Ver fotos em tela cheia do prato ${dish.name}`}
-                    className="absolute bottom-3 right-3 bg-white/90 hover:bg-white text-[#252B24] p-2 rounded-xl backdrop-blur-md shadow-md transition-all hover:scale-110 cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
-                  >
-                    <Eye className="w-3.5 h-3.5 text-[#C96F4A]" />
-                    <span className="hidden sm:inline">Fotos</span>
-                  </button>
+                  {/* Bottom overlay: Destaque de Ingrediente + Stories Preview */}
+                  <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2">
+                    {dish.featuredIngredient ? (
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-[#FFFCF7]/92 backdrop-blur-md text-[#252B24] border border-[#EFE8DA] text-[11px] font-semibold shadow-sm min-w-0">
+                        <Leaf className="w-3.5 h-3.5 text-[#C96F4A] shrink-0" />
+                        <span className="truncate">{dish.featuredIngredient}</span>
+                      </div>
+                    ) : (
+                      <span />
+                    )}
+
+                    <button
+                      onClick={() => onOpenDishStories(dish.id)}
+                      aria-label={`Ver fotos em tela cheia do prato ${dish.name}`}
+                      className="shrink-0 bg-white/90 hover:bg-white text-[#252B24] p-2 rounded-xl backdrop-blur-md shadow-md transition-all hover:scale-110 cursor-pointer flex items-center gap-1.5 text-xs font-semibold"
+                    >
+                      <Eye className="w-3.5 h-3.5 text-[#C96F4A]" />
+                      <span className="hidden sm:inline">Fotos</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Content details */}
@@ -226,17 +243,6 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                       </span>
                       {dish.caloriesApprox && <span>{dish.caloriesApprox}</span>}
                     </div>
-
-                    {/* Destaque de Ingrediente Principal */}
-                    {dish.featuredIngredient && (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#344B35]/8 text-[#344B35] border border-[#344B35]/15 text-[11px] font-semibold mb-2.5 shadow-2xs">
-                        <Leaf className="w-3 h-3 text-[#C96F4A] shrink-0" />
-                        <span className="truncate">
-                          <strong className="text-[#C96F4A] font-bold">Destaque:</strong>{' '}
-                          {dish.featuredIngredient}
-                        </span>
-                      </div>
-                    )}
 
                     <h3 className="font-serif text-xl font-bold text-[#252B24] leading-snug group-hover:text-[#344B35] transition-colors">
                       {dish.name}

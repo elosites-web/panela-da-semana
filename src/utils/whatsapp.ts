@@ -78,6 +78,26 @@ export function buildWhatsAppOrderMessage(payload: WhatsAppOrderPayload): string
   return lines.filter((line) => line !== '').join('\n');
 }
 
+export interface WhatsAppHandoffData {
+  message: string;
+  link: string;
+}
+
+export type WhatsAppOpenResult = 'initiated' | 'blocked';
+
+/**
+ * Monta a mensagem e o link wa.me codificado sem descartar os dados gerados.
+ */
+export function buildWhatsAppHandoffData(
+  payload: WhatsAppOrderPayload,
+  phoneNumber: string = BRAND_CONFIG.whatsappPhone
+): WhatsAppHandoffData {
+  const message = buildWhatsAppOrderMessage(payload);
+  const cleanPhone = phoneNumber.replace(/\D/g, '');
+  const link = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  return { message, link };
+}
+
 /**
  * Cria o link wa.me direto com o número central e mensagem codificada.
  */
@@ -85,7 +105,32 @@ export function generateWhatsAppLink(
   payload: WhatsAppOrderPayload,
   phoneNumber: string = BRAND_CONFIG.whatsappPhone
 ): string {
-  const message = buildWhatsAppOrderMessage(payload);
-  const cleanPhone = phoneNumber.replace(/\D/g, '');
-  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+  return buildWhatsAppHandoffData(payload, phoneNumber).link;
+}
+
+/**
+ * Tenta abrir o link do WhatsApp em nova aba detectando bloqueio de pop-up sem falsos positivos.
+ */
+export function attemptOpenWhatsAppLink(
+  link: string,
+  openWindow: (
+    url: string,
+    target: string
+  ) => { opener?: unknown; closed?: boolean } | null = (url, target) =>
+    window.open(url, target)
+): WhatsAppOpenResult {
+  try {
+    const openedWindow = openWindow(link, '_blank');
+    if (!openedWindow || openedWindow.closed) {
+      return 'blocked';
+    }
+    try {
+      openedWindow.opener = null;
+    } catch {
+      // Ambientes isolados podem impedir alteração de opener
+    }
+    return 'initiated';
+  } catch {
+    return 'blocked';
+  }
 }
