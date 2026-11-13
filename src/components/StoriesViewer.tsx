@@ -171,11 +171,6 @@ export const StoriesViewer: React.FC<StoriesViewerProps> = ({
             <span className="text-xs text-white/80 capitalize font-medium">
               {currentDish.category}
             </span>
-            {currentDish.caloriesApprox && (
-              <span className="text-xs text-white/70 ml-auto">
-                {currentDish.caloriesApprox}
-              </span>
-            )}
           </div>
 
           {currentDish.featuredIngredient && (

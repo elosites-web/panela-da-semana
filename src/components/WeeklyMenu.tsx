@@ -50,7 +50,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
             Cardápio Rotativo da Semana
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#252B24] tracking-tight">
-            Pratos preparados no dia do seu almoço
+            Sugestões pensadas para o almoço da semana
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#5C675B]">
             Navegue pelos dias da semana de segunda a sexta, personalize a proteína, escolha suas guarnições favoritas e adicione ao pedido.
@@ -236,12 +236,11 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                 {/* Content details */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    {/* Calories & category tag */}
+                    {/* Category tag */}
                     <div className="flex items-center justify-between text-xs text-[#5C675B] mb-2 font-medium">
                       <span className="capitalize text-[#344B35] font-semibold">
                         {dish.category}
                       </span>
-                      {dish.caloriesApprox && <span>{dish.caloriesApprox}</span>}
                     </div>
 
                     <h3 className="font-serif text-xl font-bold text-[#252B24] leading-snug group-hover:text-[#344B35] transition-colors">

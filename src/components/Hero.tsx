@@ -52,15 +52,15 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm font-medium text-[#344B35]">
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
-                <span>Panela de verdade, sem ultraprocessados</span>
+                <span>Cardápio rotativo com sabor caseiro</span>
               </div>
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
-                <span>Tamanho M (500g) e G (750g)</span>
+                <span>Opções nos tamanhos M e G</span>
               </div>
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
-                <span>Pedido rápido via WhatsApp</span>
+                <span>Montagem rápida para WhatsApp</span>
               </div>
             </div>
 
@@ -105,10 +105,10 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
                 <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#EFE8DA] shadow-lg flex items-center justify-between">
                   <div>
                     <span className="block text-[11px] font-bold uppercase tracking-wider text-[#C96F4A]">
-                      Segunda a Sexta
+                      Protótipo Semanal
                     </span>
                     <span className="font-serif font-bold text-sm text-[#252B24]">
-                      Pratos frescos preparados diariamente
+                      Cardápio ilustrativo de segunda a sexta
                     </span>
                   </div>
                   <span className="text-xs bg-[#344B35] text-white font-bold px-3 py-1.5 rounded-full">
@@ -119,7 +119,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
 
               {/* Floating accent badge */}
               <div className="absolute -top-3 -right-3 bg-[#C96F4A] text-white font-serif font-bold text-xs px-3.5 py-1.5 rounded-full shadow-md rotate-2 border-2 border-white">
-                ✨ Panela fresca todo dia
+                ✨ Sugestões da semana
               </div>
             </div>
           </motion.div>

@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="max-w-7xl lg:max-w-[1400px] w-full mx-auto flex flex-wrap justify-between items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-[#C96F4A] animate-pulse"></span>
-            <span>Cardápio da semana aberto para pedidos</span>
+            <span>Protótipo demonstrativo — cardápio ilustrativo</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-xs text-[#EFE8DA]">
             <span className="flex items-center gap-1.5">
@@ -71,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-1.5 hover:text-[#C96F4A] transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              {BRAND_CONFIG.whatsappDisplay}
+              WhatsApp de teste: {BRAND_CONFIG.whatsappDisplay}
             </a>
           </div>
         </div>
@@ -235,7 +235,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-2 text-[#344B35] font-bold mt-1 bg-[#344B35]/10 p-2.5 rounded-xl"
               >
                 <Phone className="w-4 h-4 text-[#647A52] shrink-0" />
-                <span>Falar no WhatsApp: {BRAND_CONFIG.whatsappDisplay}</span>
+                <span>WhatsApp de teste (demonstração): {BRAND_CONFIG.whatsappDisplay}</span>
               </a>
             </div>
           </div>

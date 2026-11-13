@@ -271,7 +271,7 @@ const CustomizationModalContent: React.FC<CustomizationModalContentProps> = ({
               </span>
             </div>
             <p className="text-xs text-[#5C675B] mb-3">
-              Monte seu prato com os acompanhamentos frescos preparados no dia:
+              Monte seu prato escolhendo os acompanhamentos desta opção:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {dish.allowedSides.map((side) => {

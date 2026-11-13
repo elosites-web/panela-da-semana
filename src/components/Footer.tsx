@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
             </div>
 
             <p className="text-xs text-[#EFE8DA]/70 leading-relaxed max-w-sm">
-              Refeições caseiras artesanais preparadas diariamente com afeto e ingredientes selecionados. Cardápio rotativo para resolver seu almoço com comida de verdade.
+              Proposta conceitual de cardápio rotativo semanal com foco em comida caseira, personalização de pratos e simulação de pedidos.
             </p>
 
             <div className="pt-2">
@@ -93,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 text-[#C96F4A] shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-white block">Horário de funcionamento:</strong>
+                  <strong className="text-white block">Horários (ilustrativos):</strong>
                   <span>{BRAND_CONFIG.hours}</span>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
               <div className="flex items-start gap-2">
                 <Phone className="w-4 h-4 text-[#C96F4A] shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-white block">WhatsApp de testes:</strong>
+                  <strong className="text-white block">WhatsApp de testes (demonstração):</strong>
                   <a
                     href={`https://wa.me/${BRAND_CONFIG.whatsappPhone}`}
                     target="_blank"
@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#C96F4A] shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-white block">Região atendida:</strong>
+                  <strong className="text-white block">Região prevista (conceito):</strong>
                   <span>{BRAND_CONFIG.serviceArea}</span>
                 </div>
               </div>

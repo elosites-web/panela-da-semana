@@ -17,6 +17,7 @@ import { calculateCartTotals, formatCurrency } from '../utils/pricing';
 import {
   attemptOpenWhatsAppLink,
   buildWhatsAppHandoffData,
+  copyTextWithFallback,
   WhatsAppOpenResult,
 } from '../utils/whatsapp';
 
@@ -50,7 +51,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     status: WhatsAppOpenResult;
     link: string;
     message: string;
-    copied: boolean;
+    copyStatus: 'idle' | 'copied' | 'failed';
   }
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -182,7 +183,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       status,
       link,
       message,
-      copied: false,
+      copyStatus: 'idle',
     });
 
     bodyRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -190,24 +191,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handleCopyMessage = async () => {
     if (!handoffFeedback) return;
-    try {
-      await navigator.clipboard.writeText(handoffFeedback.message);
-      setHandoffFeedback((prev) => (prev ? { ...prev, copied: true } : null));
-    } catch {
-      try {
-        const textarea = document.createElement('textarea');
-        textarea.value = handoffFeedback.message;
-        textarea.style.position = 'fixed';
-        textarea.style.opacity = '0';
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textarea);
-        setHandoffFeedback((prev) => (prev ? { ...prev, copied: true } : null));
-      } catch {
-        // Ignora falha de área de transferência
-      }
-    }
+    const copied = await copyTextWithFallback(handoffFeedback.message);
+    setHandoffFeedback((prev) =>
+      prev ? { ...prev, copyStatus: copied ? 'copied' : 'failed' } : null
+    );
   };
 
   return (
@@ -311,12 +298,18 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 >
                   <Copy className="w-3.5 h-3.5 text-[#C96F4A]" />
                   <span>
-                    {handoffFeedback.copied
+                    {handoffFeedback.copyStatus === 'copied'
                       ? 'Mensagem copiada!'
                       : 'Copiar mensagem'}
                   </span>
                 </button>
               </div>
+
+              {handoffFeedback.copyStatus === 'failed' && (
+                <p className="text-[11px] text-[#5C675B]">
+                  Não foi possível copiar automaticamente neste navegador. Você ainda pode usar o botão do WhatsApp acima para abrir a mensagem pronta.
+                </p>
+              )}
             </div>
           )}
 
@@ -485,7 +478,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   type="text"
                   value={formData.neighborhood}
                   onChange={(e) => updateField('neighborhood', e.target.value)}
-                  placeholder="Ex: Pinheiros"
+                  placeholder="Ex: Centro"
                   className={`w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#C96F4A] ${
                     errors.neighborhood ? 'border-red-400 bg-red-50/50' : 'border-[#EFE8DA]'
                   }`}
@@ -525,9 +518,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               {[
-                { id: 'pix', label: 'Pix no pedido', sub: 'Chave enviada no chat' },
-                { id: 'cartao', label: 'Cartão na entrega', sub: 'Débito ou Crédito' },
-                { id: 'dinheiro', label: 'Dinheiro na entrega', sub: 'Troco se necessário' },
+                { id: 'pix', label: 'Pix (preferência)', sub: 'A combinar no atendimento' },
+                { id: 'cartao', label: 'Cartão na entrega', sub: 'Sujeito à disponibilidade' },
+                { id: 'dinheiro', label: 'Dinheiro na entrega', sub: 'Informar se precisa de troco' },
               ].map((p) => {
                 const isSelected = formData.paymentMethod === p.id;
                 return (
@@ -562,7 +555,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <p className="text-[11px] text-[#5C675B] flex items-center gap-1.5 pt-1">
               <ShieldCheck className="w-3.5 h-3.5 text-[#647A52]" />
               <span>
-                O pagamento é combinado diretamente com o estabelecimento no momento da confirmação. Não solicitamos dados de cartão no site.
+                Simulação de checkout: formas de pagamento, cobertura de entrega e prazos reais dependem de confirmação direta com o estabelecimento quando em operação.
               </span>
             </p>
           </div>
@@ -615,7 +608,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         <div className="p-4 sm:p-6 bg-[#F8F3E9] border-t border-[#EFE8DA] flex flex-col sm:flex-row items-center justify-between gap-3 sticky bottom-0 z-20">
           <div className="text-center sm:text-left">
             <span className="text-[11px] text-[#5C675B] block font-medium">
-              Número de teste de atendimento:
+              WhatsApp de teste (demonstração):
             </span>
             <span className="font-mono text-xs font-bold text-[#344B35]">
               +{BRAND_CONFIG.whatsappPhone}

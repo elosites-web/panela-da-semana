@@ -5,29 +5,24 @@ export const BRAND_CONFIG = {
   tagline: 'Comida de verdade. Semana bem resolvida.',
   whatsappPhone: '5511995722584',
   whatsappDisplay: '(11) 99572-2584',
-  email: 'contato@paneladasemana.com.br',
-  hours: 'Segunda a Sexta, das 11h às 14h30 (pedidos aceitos das 08h às 13h30)',
-  serviceArea: 'Entregas em bairros selecionados de São Paulo — SP',
+  hours: 'Horários ilustrativos de segunda a sexta (a confirmar na operação)',
+  serviceArea: 'Região pretendida do projeto: Jundiaí — SP (cobertura a confirmar)',
   deliveryFeeCents: 0, // Demonstração: frete zero configurável
-  prototypeNotice: 'Projeto demonstrativo. Cardápio, fotografias e valores comerciais ilustrativos para apresentação do conceito.',
-  socials: {
-    instagram: '@paneladasemana',
-  },
+  prototypeNotice:
+    'Protótipo demonstrativo: cardápio, fotografias, valores, horários e informações comerciais são ilustrativos.',
 };
 
 export const SIZES_CONFIG: SizeOption[] = [
   {
     id: 'medium',
     name: 'Marmita Média',
-    label: 'M (aprox. 500g)',
-    weightApprox: '500g',
+    label: 'Porção individual (Tamanho M)',
     priceCents: 2200, // R$ 22,00
   },
   {
     id: 'large',
     name: 'Marmita Grande',
-    label: 'G (aprox. 750g)',
-    weightApprox: '750g',
+    label: 'Porção maior (Tamanho G)',
     priceCents: 2800, // R$ 28,00
   },
 ];
@@ -35,7 +30,7 @@ export const SIZES_CONFIG: SizeOption[] = [
 export const EXTRAS_CONFIG: ExtraOption[] = [
   {
     id: 'extra_ovo',
-    name: 'Ovo frito caipira ou poché',
+    name: 'Ovo frito ou poché',
     priceCents: 400, // + R$ 4,00
   },
   {
@@ -62,15 +57,15 @@ export const WEEKLY_DISHES: Dish[] = [
     day: 'segunda',
     dayLabel: 'Segunda-feira',
     name: 'Filé de Frango Grelhado Artesanal',
-    tagline: 'Leve, dourado e suculento para começar a semana com energia.',
+    tagline: 'Leve, dourado e suculento para começar a semana com equilíbrio.',
     description:
-      'Filés de peito de frango marinados em ervas finas e limão siciliano, grelhados no ponto com crostinha dourada. Acompanhado de arroz soltinho, feijão temperado e legumes frescos salteados.',
+      'Filés de peito de frango marinados em ervas finas e limão siciliano, grelhados no ponto com crostinha dourada. Acompanhado de arroz soltinho, feijão temperado e legumes salteados.',
     ingredients: [
-      'Peito de frango selecionado',
-      'Ervas frescas (tomilho e alecrim)',
+      'Peito de frango em filés',
+      'Ervas (tomilho e alecrim)',
       'Azeite extravirgem',
       'Arroz branco ou integral',
-      'Feijão carioca caseiro',
+      'Feijão carioca temperado',
       'Abobrinha e cenoura salteadas',
     ],
     category: 'tradicionais',
@@ -78,8 +73,7 @@ export const WEEKLY_DISHES: Dish[] = [
     largePriceCents: 2800,
     image: '/images/dishes/frango-grelhado.jpg',
     videoUrl: null, // Pronto para receber URL de vídeo 9:16 gerado via Google Flow
-    badge: 'Mais pedido da segunda',
-    caloriesApprox: '520 kcal (tam. M)',
+    badge: 'Sugestão de segunda',
     featuredIngredient: 'Peito de Frango & Limão Siciliano',
     allowedProteins: [
       { id: 'frango_grelhado', name: 'Filé de Frango Grelhado (padrão)', included: true },
@@ -94,14 +88,14 @@ export const WEEKLY_DISHES: Dish[] = [
     day: 'terca',
     dayLabel: 'Terça-feira',
     name: 'Carne de Panela com Molho Ferrugem',
-    tagline: 'Cozimento lento, carne que desfia na colher e molho aveludado.',
+    tagline: 'Cozimento lento, carne macia que desfia na colher e molho encorpado.',
     description:
-      'Cortes nobres de carne bovina dourados e cozidos lentamente em fogo brando com cebolas caramelizadas, cenouras macias, batatinhas e cheiro-verde fresco. Conforto e sabor de domingo em plena terça-feira.',
+      'Cortes bovinos dourados e cozidos lentamente em fogo brando com cebolas caramelizadas, cenouras macias, batatinhas e cheiro-verde. Conforto e sabor caseiro para a terça-feira.',
     ingredients: [
-      'Músculo bovino / Acém selecionado',
-      'Cenoura baby e batatas',
+      'Músculo bovino ou acém',
+      'Cenoura e batatas cozidas',
       'Molho encorpado de cebola e tomate',
-      'Louro e cheiro-verde da horta',
+      'Louro e cheiro-verde',
       'Arroz branco',
       'Feijão carioca cremoso',
     ],
@@ -110,8 +104,7 @@ export const WEEKLY_DISHES: Dish[] = [
     largePriceCents: 2800,
     image: '/images/dishes/carne-de-panela.jpg',
     videoUrl: null,
-    badge: 'Receita de família',
-    caloriesApprox: '610 kcal (tam. M)',
+    badge: 'Receita tradicional',
     featuredIngredient: 'Carne Bovina & Molho Ferrugem',
     allowedProteins: [
       { id: 'carne_panela', name: 'Carne de Panela Desfiando (padrão)', included: true },
@@ -126,15 +119,15 @@ export const WEEKLY_DISHES: Dish[] = [
     day: 'quarta',
     dayLabel: 'Quarta-feira',
     name: 'Carne Moída Refogada com Banana e Farofa',
-    tagline: 'O clássico brasileiro afetivo que todo mundo ama na quarta.',
+    tagline: 'O clássico brasileiro afetivo pensado para o meio da semana.',
     description:
-      'Patinho moído de primeira refogado no alho dourado, tomate maduro, azeitonas verdes picadinhas e cheiro-verde. Servido com arroz, feijão preto ou carioca, banana-da-terra grelhada e farofinha crocante.',
+      'Patinho moído refogado no alho dourado, tomate maduro, azeitonas verdes picadinhas e cheiro-verde. Servido com arroz, feijão preto ou carioca, banana-da-terra grelhada e farofa crocante.',
     ingredients: [
-      'Patinho moído fresco',
+      'Patinho moído refogado',
       'Azeitonas verdes fatiadas',
       'Tomate confitado e cebola',
       'Banana-da-terra dourada',
-      'Farofa artesanal na manteiga',
+      'Farofa na manteiga',
       'Feijão preto com louro',
     ],
     category: 'tradicionais',
@@ -142,8 +135,7 @@ export const WEEKLY_DISHES: Dish[] = [
     largePriceCents: 2800,
     image: '/images/dishes/carne-moida.jpg',
     videoUrl: null,
-    badge: 'Favorito do público',
-    caloriesApprox: '580 kcal (tam. M)',
+    badge: 'Clássico brasileiro',
     featuredIngredient: 'Patinho Moído & Banana-da-Terra',
     allowedProteins: [
       { id: 'carne_moida', name: 'Carne Moída Temperada (padrão)', included: true },
@@ -158,14 +150,14 @@ export const WEEKLY_DISHES: Dish[] = [
     day: 'quinta',
     dayLabel: 'Quinta-feira',
     name: 'Omelete Dourada com Queijo Minas e Tomatinhos',
-    tagline: 'Super fofa, recheada de queijo derretido, espinafre e tomatinhos.',
+    tagline: 'Fofa e dourada, recheada com queijo derretido, espinafre e tomatinhos.',
     description:
-      'Ovos caipiras batidos com ervas frescas, recheados generosamente com queijo minas padrão derretido, tomatinhos cereja assados e espinafre fresco. Acompanha arroz integral e salada verde com toque cítrico.',
+      'Ovos batidos com ervas, recheados com queijo minas padrão derretido, tomatinhos cereja assados e espinafre salteado. Acompanha arroz integral e salada verde com toque cítrico.',
     ingredients: [
-      'Ovos caipiras frescos',
-      'Queijo minas padrão artesanal',
+      'Ovos batidos com ervas',
+      'Queijo minas padrão',
       'Tomate cereja assado no azeite',
-      'Espinafre fresco salteado',
+      'Espinafre salteado',
       'Arroz integral com grãos',
       'Mix de folhas e cenoura',
     ],
@@ -174,9 +166,8 @@ export const WEEKLY_DISHES: Dish[] = [
     largePriceCents: 2800,
     image: '/images/dishes/omelete-vegetariana.jpg',
     videoUrl: null,
-    badge: 'Opção leve e vegetariana',
-    caloriesApprox: '460 kcal (tam. M)',
-    featuredIngredient: 'Ovos Caipiras & Queijo Minas',
+    badge: 'Opção vegetariana',
+    featuredIngredient: 'Ovos & Queijo Minas',
     allowedProteins: [
       { id: 'omelete_queijo', name: 'Omelete com Queijo Minas & Tomatinhos (padrão)', included: true },
       { id: 'omelete_cogumelos', name: 'Omelete com Mix de Cogumelos Shimeji', included: true },
@@ -190,14 +181,14 @@ export const WEEKLY_DISHES: Dish[] = [
     day: 'sexta',
     dayLabel: 'Sexta-feira',
     name: 'Legumes Assados com Grão-de-Bico ao Alecrim',
-    tagline: 'Cores vibrantes, textura assada caramelizada e muita saciedade.',
+    tagline: 'Cores vibrantes, textura assada caramelizada e combinação aromática.',
     description:
-      'Mix farto de abóbora cabotiá, abobrinha brasileira, berinjela e pimentões assados lentamente no azeite com alho inteiro e alecrim fresco. Servido com grão-de-bico temperado e arroz integral aromático.',
+      'Mix de abóbora cabotiá, abobrinha, berinjela e pimentões assados lentamente no azeite com alho inteiro e alecrim. Servido com grão-de-bico temperado e arroz integral aromático.',
     ingredients: [
       'Abóbora cabotiá assada',
       'Grão-de-bico macio salteado',
       'Abobrinha e pimentão doce',
-      'Alecrim fresco e azeite extravirgem',
+      'Alecrim e azeite extravirgem',
       'Arroz integral com castanhas',
       'Rúcula com vinagrete leve',
     ],
@@ -206,8 +197,7 @@ export const WEEKLY_DISHES: Dish[] = [
     largePriceCents: 2800,
     image: '/images/dishes/refeicao-vegetariana.jpg',
     videoUrl: null,
-    badge: '100% Plant-Based',
-    caloriesApprox: '490 kcal (tam. M)',
+    badge: 'Sugestão Plant-Based',
     featuredIngredient: 'Abóbora Cabotiá & Grão-de-Bico',
     allowedProteins: [
       { id: 'grao_de_bico', name: 'Grão-de-bico ao azeite de ervas (padrão)', included: true },
@@ -225,20 +215,20 @@ export const ADDITIONAL_DISHES_PORTFOLIO = [
     name: 'Clássico Arroz & Feijão com Farofa',
     category: 'tradicionais',
     image: '/images/dishes/arroz-feijao.jpg',
-    description: 'A base da culinária afetiva brasileira, feito todo dia fresquinho.',
+    description: 'A base da culinária afetiva brasileira, representada no conceito do cardápio.',
   },
   {
     id: 'portfolio-pure-batata',
     name: 'Filé com Purê Aveludado & Brócolis',
     category: 'tradicionais',
     image: '/images/dishes/pure-batata.jpg',
-    description: 'Purê cremoso de batatas selecionadas com noz-moscada ralada na hora.',
+    description: 'Purê cremoso de batatas com toque suave de noz-moscada e brócolis no vapor.',
   },
   {
     id: 'portfolio-refeicao-leve',
-    name: 'Bowl Leve & Nutritivo com Frango e Folhas',
+    name: 'Bowl Leve com Frango e Folhas',
     category: 'leves',
     image: '/images/dishes/refeicao-leve.jpg',
-    description: 'Para quem busca leveza, equilíbrio e nutrientes frescos no dia a dia.',
+    description: 'Composição visual equilibrada combinando proteína grelhada e folhas variadas.',
   },
 ];

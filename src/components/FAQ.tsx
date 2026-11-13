@@ -8,28 +8,28 @@ export const FAQ: React.FC = () => {
 
   const faqs = [
     {
-      q: 'Qual o horário limite para pedir o almoço do dia?',
-      a: `Nossa produção começa bem cedinho! Aceitamos pedidos a partir das 08h e recomendamos confirmar até as 11h30 para garantir o melhor horário de entrega da sua rota. Nossas entregas acontecem entre 11h30 e 14h30.`,
+      q: 'Os horários de atendimento já estão definidos?',
+      a: 'Ainda não. Este site é uma demonstração de conceito; os horários finais de recebimento de pedidos, preparo e janela de entrega serão confirmados quando a operação for iniciada.',
     },
     {
-      q: 'Quais são os tamanhos disponíveis e o peso aproximado?',
-      a: 'Oferecemos dois tamanhos pensados para a sua fome: o tamanho Médio (M, aprox. 500g, R$ 22,00), ideal para o dia a dia; e o tamanho Grande (G, aprox. 750g, R$ 28,00), perfeito para quem tem mais apetite ou quer dividir.',
+      q: 'Quais são os tamanhos disponíveis no cardápio ilustrativo?',
+      a: 'A demonstração apresenta duas opções de tamanho: Marmita Média (M, R$ 22,00 ilustrativos) e Marmita Grande (G, R$ 28,00 ilustrativos). As gramaturas finais não são exibidas aqui e serão definidas na padronização da cozinha.',
     },
     {
-      q: 'Posso pedir para mais de um dia da semana de uma vez?',
-      a: 'Sim! Você pode adicionar marmitas de diferentes dias da semana no mesmo pedido. Ao falar conosco no WhatsApp, alinhamos se você deseja receber tudo em entregas programadas diárias ou receber no início da semana para reaquecer.',
+      q: 'Posso simular pedidos para mais de um dia da semana de uma vez?',
+      a: 'Sim. Na simulação do site, você pode combinar pratos de diferentes dias da semana no mesmo carrinho. Em uma operação real, a logística de entregas diárias ou programadas é alinhada diretamente no atendimento.',
     },
     {
       q: 'Como funciona o pagamento?',
-      a: 'O pagamento é combinado diretamente com a nossa equipe no WhatsApp após o envio do pedido. Aceitamos Pix, cartão de débito/crédito na entrega ou dinheiro com troco informado.',
+      a: 'O formulário apenas registra a preferência escolhida (como Pix, cartão ou dinheiro) para compor a mensagem demonstrativa. A disponibilidade real das formas de pagamento será confirmada diretamente pelo estabelecimento.',
     },
     {
-      q: 'Como os pratos chegam e como devo aquecer?',
-      a: 'Nossas marmitas são entregues em embalagens térmicas e seladas para consumo imediato. Caso deseje aquecer mais tarde, a embalagem é própria para micro-ondas (recomendamos de 2 a 3 minutos).',
+      q: 'Como funcionam as embalagens, conservação e reaquecimento?',
+      a: 'Por se tratar de um protótipo conceitual, o modelo de embalagem, as condições de conservação e as instruções de aquecimento serão padronizados e informados antes do início da operação.',
     },
     {
-      q: 'A Panela da Semana atende toda a cidade?',
-      a: `Atendemos rotas de bairros selecionados. Na etapa de finalização do pedido via WhatsApp (+${BRAND_CONFIG.whatsappPhone}), confirmamos imediatamente a cobertura do seu CEP e o prazo exato de envio.`,
+      q: 'Qual é a região prevista para atendimento?',
+      a: `O conceito foi pensado para a região de Jundiaí — SP, mas os bairros atendidos, rotas e eventuais taxas de entrega ainda dependem de confirmação. O número exibido no protótipo (+${BRAND_CONFIG.whatsappPhone}) é um WhatsApp de teste para demonstração do fluxo.`,
     },
   ];
 
@@ -44,7 +44,7 @@ export const FAQ: React.FC = () => {
             Perguntas Frequentes
           </h2>
           <p className="mt-3 text-sm text-[#5C675B]">
-            Tudo o que você precisa saber sobre o cardápio, pedidos e horários de entrega.
+            Esclarecimentos sobre o funcionamento deste protótipo e informações que dependem de confirmação operacional.
           </p>
         </ScrollReveal>
 

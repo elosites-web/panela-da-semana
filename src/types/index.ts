@@ -8,7 +8,6 @@ export interface SizeOption {
   id: DishSize;
   name: string;
   label: string;
-  weightApprox: string;
   priceCents: number;
 }
 
@@ -47,7 +46,6 @@ export interface Dish {
   minSides: number;
   maxSides: number;
   badge?: string;
-  caloriesApprox?: string;
   featuredIngredient?: string; // Destaque de Ingrediente principal
 }
 

@@ -7,23 +7,23 @@ export const BrandValues: React.FC = () => {
   const pillars = [
     {
       icon: Heart,
-      title: 'Tempero de casa, sem atalhos',
-      desc: 'Alho dourado na hora, cebola picadinha, louro fresco e caldos naturais. Zero conservantes ou temperos químicos.',
+      title: 'Tempero caseiro na proposta',
+      desc: 'Receitas planejadas em torno de temperos tradicionais do dia a dia, como alho, cebola, ervas e caldos culinários.',
     },
     {
       icon: Leaf,
-      title: 'Ingredientes da estação',
-      desc: 'Legumes frescos dos melhores produtores locais e cortes magros e selecionados para cada dia da semana.',
+      title: 'Cardápio variado na semana',
+      desc: 'Cinco combinações ilustrativas de segunda a sexta, equilibrando pratos tradicionais e alternativas vegetarianas.',
     },
     {
       icon: Clock,
-      title: 'Pontualidade no almoço',
-      desc: 'Produzido na manhã do dia e entregue pontualmente entre 11h30 e 13h30 para que seu almoço chegue quente.',
+      title: 'Fluxo direto de atendimento',
+      desc: 'Protótipo desenhado para organizar escolha de tamanho, proteína e guarnições antes do contato por WhatsApp.',
     },
     {
       icon: Shield,
-      title: 'Embalagem biodegradável e selada',
-      desc: 'Potes térmicos seguros que não vazam, preservam a textura dos acompanhamentos e são próprios para aquecer.',
+      title: 'Embalagem a definir na operação',
+      desc: 'Padrões finais de acondicionamento, conservação e reaquecimento serão definidos conforme a operação real.',
     },
   ];
 
@@ -33,13 +33,13 @@ export const BrandValues: React.FC = () => {
         {/* Title */}
         <ScrollReveal className="max-w-2xl mb-12 sm:mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
-            Nossos Princípios na Cozinha
+            Proposta Culinária do Projeto
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#252B24] tracking-tight">
-            Comida boa de verdade, feita para quem valoriza o tempo e a saúde
+            Um conceito de comida caseira pensado para o dia a dia
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#5C675B]">
-            A Panela da Semana nasceu para resolver o dilema entre comida rápida sem valor nutricional e o cansaço de cozinhar todos os dias.
+            A proposta da Panela da Semana reúne variedade semanal, personalização simples e apresentação cuidada em uma demonstração comercial.
           </p>
         </ScrollReveal>
 
@@ -71,13 +71,13 @@ export const BrandValues: React.FC = () => {
         <div className="bg-[#344B35] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden">
           <ScrollReveal className="relative z-10 max-w-xl mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-1">
-              Galeria da Cozinha
+              Galeria Conceitual
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#FFFCF7]">
-              Cada detalhe do prato importa para nós
+              Referências visuais do estilo de cozinha
             </h3>
             <p className="text-xs sm:text-sm text-[#EFE8DA] mt-2">
-              Desde o feijão com caldo espesso até os vegetais no ponto exato de cozimento.
+              Imagens ilustrativas que traduzem a estética caseira e o cuidado visual da proposta.
             </p>
           </ScrollReveal>
 

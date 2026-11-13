@@ -5,6 +5,7 @@ import {
   generateWhatsAppLink,
   buildWhatsAppHandoffData,
   attemptOpenWhatsAppLink,
+  copyTextWithFallback,
 } from './whatsapp';
 import { CheckoutForm, CartItem } from '../types';
 
@@ -12,12 +13,12 @@ test('buildWhatsAppOrderMessage generates complete order message with required d
   const customer: CheckoutForm = {
     customerName: 'Mariana Souza',
     customerPhone: '(11) 98888-7777',
-    cep: '01310-100',
-    street: 'Avenida Paulista',
-    number: '1000',
+    cep: '13201-000',
+    street: 'Rua do Rosário',
+    number: '100',
     complement: 'Apt 42',
-    neighborhood: 'Bela Vista',
-    reference: 'Próximo ao metrô',
+    neighborhood: 'Centro',
+    reference: 'Próximo à praça',
     paymentMethod: 'pix',
     generalNotes: 'Campainha com defeito, ligar ao chegar.',
   };
@@ -30,10 +31,10 @@ test('buildWhatsAppOrderMessage generates complete order message with required d
       dishImage: '/images/dishes/frango-grelhado.jpg',
       dayLabel: 'Segunda-feira',
       size: 'medium',
-      sizeLabel: 'M (aprox. 500g)',
+      sizeLabel: 'Marmita Média',
       protein: 'Filé de Frango Grelhado',
       sides: ['Arroz branco soltinho', 'Feijão carioca cremoso'],
-      extras: [{ id: 'extra_ovo', name: 'Ovo frito caipira', priceCents: 400 }],
+      extras: [{ id: 'extra_ovo', name: 'Ovo frito', priceCents: 400 }],
       observation: 'Caprichar no feijão',
       unitPriceCents: 2600,
       quantity: 1,
@@ -50,9 +51,9 @@ test('buildWhatsAppOrderMessage generates complete order message with required d
 
   const message = buildWhatsAppOrderMessage(payload);
   assert.ok(message.includes('Mariana Souza'));
-  assert.ok(message.includes('Avenida Paulista'));
+  assert.ok(message.includes('Rua do Rosário'));
   assert.ok(message.includes('Filé de Frango Grelhado'));
-  assert.ok(message.includes('Ovo frito caipira'));
+  assert.ok(message.includes('Ovo frito'));
   assert.ok(message.includes('Caprichar no feijão'));
   assert.ok(message.includes('Pix'));
 
@@ -83,4 +84,37 @@ test('attemptOpenWhatsAppLink distinguishes initiated handoff from blocked popup
     throw new Error('Popup blocked');
   });
   assert.equal(blockedThrowResult, 'blocked');
+});
+
+test('copyTextWithFallback verifies legacy return value and reports failure truthfully', async () => {
+  const clipboardSuccess = await copyTextWithFallback('texto', {
+    writeText: async () => {},
+  });
+  assert.equal(clipboardSuccess, true);
+
+  const fallbackSuccess = await copyTextWithFallback('texto', {
+    writeText: async () => {
+      throw new Error('Not allowed');
+    },
+    legacyCopy: () => true,
+  });
+  assert.equal(fallbackSuccess, true);
+
+  const fallbackFalse = await copyTextWithFallback('texto', {
+    writeText: async () => {
+      throw new Error('Not allowed');
+    },
+    legacyCopy: () => false,
+  });
+  assert.equal(fallbackFalse, false);
+
+  const fallbackThrow = await copyTextWithFallback('texto', {
+    writeText: async () => {
+      throw new Error('Not allowed');
+    },
+    legacyCopy: () => {
+      throw new Error('execCommand error');
+    },
+  });
+  assert.equal(fallbackThrow, false);
 });

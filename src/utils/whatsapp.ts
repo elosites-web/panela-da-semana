@@ -17,9 +17,9 @@ export function buildWhatsAppOrderMessage(payload: WhatsAppOrderPayload): string
   const { customer, items, subtotalCents, deliveryFeeCents, totalCents } = payload;
 
   const paymentLabels: Record<string, string> = {
-    pix: 'Pix (chave enviada pela Panela da Semana)',
+    pix: 'Pix (a combinar no atendimento)',
     dinheiro: 'Dinheiro na entrega',
-    cartao: 'Cartão na entrega (maquininha)',
+    cartao: 'Cartão na entrega',
   };
 
   const paymentText = paymentLabels[customer.paymentMethod] || customer.paymentMethod;
@@ -72,7 +72,7 @@ export function buildWhatsAppOrderMessage(payload: WhatsAppOrderPayload): string
     `• ${paymentText}`,
     customer.generalNotes ? `\n📝 *OBSERVAÇÕES GERAIS:* ${customer.generalNotes.trim()}` : '',
     ``,
-    `_Pedido gerado via cardápio online Panela da Semana._`
+    `_Mensagem ilustrativa gerada pelo protótipo Panela da Semana._`
   );
 
   return lines.filter((line) => line !== '').join('\n');
@@ -132,5 +132,63 @@ export function attemptOpenWhatsAppLink(
     return 'initiated';
   } catch {
     return 'blocked';
+  }
+}
+
+export interface ClipboardCopyAdapter {
+  writeText?: (text: string) => Promise<void>;
+  legacyCopy?: (text: string) => boolean;
+}
+
+/**
+ * Copia texto para a área de transferência verificando sucesso real tanto na Clipboard API quanto no fallback execCommand.
+ */
+export async function copyTextWithFallback(
+  text: string,
+  adapter?: ClipboardCopyAdapter
+): Promise<boolean> {
+  const writeText =
+    adapter?.writeText ??
+    (typeof navigator !== 'undefined' && navigator.clipboard?.writeText
+      ? (value: string) => navigator.clipboard.writeText(value)
+      : undefined);
+
+  if (writeText) {
+    try {
+      await writeText(text);
+      return true;
+    } catch {
+      // Continua para o fallback legado
+    }
+  }
+
+  if (adapter?.legacyCopy) {
+    try {
+      return Boolean(adapter.legacyCopy(text));
+    } catch {
+      return false;
+    }
+  }
+
+  if (typeof document === 'undefined' || !document.body) {
+    return false;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+
+  try {
+    document.body.appendChild(textarea);
+    textarea.select();
+    return Boolean(document.execCommand('copy'));
+  } catch {
+    return false;
+  } finally {
+    if (textarea.parentNode) {
+      textarea.parentNode.removeChild(textarea);
+    }
   }
 }

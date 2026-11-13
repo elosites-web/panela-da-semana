@@ -9,28 +9,28 @@ export const HowItWorks: React.FC = () => {
       icon: CalendarDays,
       title: 'Escolha seu dia',
       description:
-        'Cada dia da semana tem uma receita especial fresca, pensada para nutrir com afeto de segunda a sexta-feira.',
+        'Cada dia da semana apresenta uma combinação ilustrativa de segunda a sexta-feira.',
     },
     {
       step: '02',
       icon: UtensilsCrossed,
       title: 'Monte sua marmita',
       description:
-        'Selecione o tamanho ideal (M ou G), defina suas guarnições favoritas e adicione extras como ovo caipira.',
+        'Selecione o tamanho ideal (M ou G), defina suas guarnições favoritas e adicione extras disponíveis no cardápio.',
     },
     {
       step: '03',
       icon: MessageSquareText,
-      title: 'Envie no WhatsApp',
+      title: 'Prepare no WhatsApp',
       description:
-        'Seu pedido sai pronto e formatado diretamente para nosso número de atendimento em um clique.',
+        'Seu pedido sai formatado automaticamente para você revisar e enviar no número de teste do projeto.',
     },
     {
       step: '04',
       icon: Bike,
-      title: 'Receba quentinho',
+      title: 'Confirmação na operação',
       description:
-        'Entrega pontual para seu almoço, embalado com todo cuidado para manter a temperatura e o sabor de panela.',
+        'Etapa ilustrativa: em uma operação real, prazos, formas de entrega e confirmação são alinhados diretamente no atendimento.',
     },
   ];
 
@@ -45,7 +45,7 @@ export const HowItWorks: React.FC = () => {
             Como funciona a Panela da Semana
           </h2>
           <p className="mt-3 text-sm text-[#5C675B]">
-            Sem aplicativo complicado. Você escolhe pelo cardápio e fecha o pedido diretamente com a nossa cozinha.
+            Sem aplicativo complicado: você escolhe pelo cardápio ilustrativo e prepara a mensagem para o WhatsApp.
           </p>
         </ScrollReveal>
 
