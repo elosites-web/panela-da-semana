@@ -1,6 +1,6 @@
 {
   "name": "Panela da Semana",
-  "description": "Comida de verdade. Semana bem resolvida. Cardápio semanal de refeições artesanais caseiras com montagem personalizada e pedido direto via WhatsApp.",
+  "description": "Comida de verdade. Semana bem resolvida. Protótipo demonstrativo de cardápio semanal ilustrativo com personalização de pratos e simulação via WhatsApp.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
