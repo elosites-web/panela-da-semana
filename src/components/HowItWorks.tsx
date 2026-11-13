@@ -1,5 +1,6 @@
 import React from 'react';
 import { CalendarDays, UtensilsCrossed, MessageSquareText, Bike } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 export const HowItWorks: React.FC = () => {
   const steps = [
@@ -36,7 +37,7 @@ export const HowItWorks: React.FC = () => {
   return (
     <section id="como-funciona" className="py-16 sm:py-20 bg-[#F8F3E9] border-y border-[#EFE8DA]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-xl mx-auto mb-12">
+        <ScrollReveal className="text-center max-w-xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
             Passo a Passo Simples
           </span>
@@ -46,14 +47,15 @@ export const HowItWorks: React.FC = () => {
           <p className="mt-3 text-sm text-[#5C675B]">
             Sem aplicativo complicado. Você escolhe pelo cardápio e fecha o pedido diretamente com a nossa cozinha.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <ScrollReveal
                 key={idx}
+                delay={idx * 0.08}
                 className="bg-white rounded-3xl p-6 border border-[#EFE8DA] shadow-xs relative flex flex-col justify-between hover:shadow-md transition-shadow group"
               >
                 <div>
@@ -72,7 +74,7 @@ export const HowItWorks: React.FC = () => {
                     {item.description}
                   </p>
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

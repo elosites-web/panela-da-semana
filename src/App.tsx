@@ -14,6 +14,9 @@ import { BRAND_CONFIG, WEEKLY_DISHES } from './data/config';
 import { CartItem, Dish } from './types';
 import { calculateCartTotals, formatCurrency } from './utils/pricing';
 import { ShoppingBag, ArrowRight, BookOpen, Sparkles } from 'lucide-react';
+import { MotionConfig } from 'motion/react';
+import { ScrollReveal } from './components/ScrollReveal';
+import { CartToast, CartToastData } from './components/CartToast';
 
 const CART_STORAGE_KEY = 'panela_da_semana_cart_v1';
 
@@ -38,6 +41,7 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isDocModalOpen, setIsDocModalOpen] = useState(false);
+  const [cartToast, setCartToast] = useState<CartToastData | null>(null);
 
   // Sync cart to localStorage whenever it changes
   useEffect(() => {
@@ -66,7 +70,12 @@ export default function App() {
       }
       return [...prevItems, newItem];
     });
-    // Open cart drawer so user sees their added item immediately
+    // Show confirmation toast and open cart drawer
+    setCartToast({
+      id: Date.now(),
+      dishName: newItem.dishName,
+      sizeLabel: newItem.sizeLabel,
+    });
     setIsCartOpen(true);
   };
 
@@ -107,7 +116,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FFFCF7] text-[#252B24] selection:bg-[#C96F4A] selection:text-white">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen flex flex-col bg-[#FFFCF7] text-[#252B24] selection:bg-[#C96F4A] selection:text-white">
       {/* Header */}
       <Header
         cartItemCount={totalQuantity}
@@ -148,7 +158,7 @@ export default function App() {
 
         {/* In-app guide and editability banner */}
         <section className="py-12 bg-[#F8F3E9] border-t border-[#EFE8DA]">
-          <div className="max-w-4xl mx-auto px-4 text-center">
+          <ScrollReveal className="max-w-4xl mx-auto px-4 text-center">
             <button
               onClick={() => setIsDocModalOpen(true)}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white border border-[#EFE8DA] text-xs sm:text-sm font-bold text-[#344B35] hover:bg-[#EFE8DA] shadow-xs transition-all cursor-pointer"
@@ -156,7 +166,7 @@ export default function App() {
               <BookOpen className="w-4 h-4 text-[#C96F4A]" />
               <span>Manual do Proprietário: Como editar pratos, preços e WhatsApp</span>
             </button>
-          </div>
+          </ScrollReveal>
         </section>
       </main>
 
@@ -302,6 +312,14 @@ export default function App() {
           </div>
         </div>
       )}
-    </div>
+
+      {/* Add-to-Cart Toast Notification */}
+      <CartToast
+        toast={cartToast}
+        onClose={() => setCartToast(null)}
+        durationMs={3000}
+      />
+      </div>
+    </MotionConfig>
   );
 }

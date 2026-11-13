@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { BRAND_CONFIG } from '../data/config';
+import { ScrollReveal } from './ScrollReveal';
 
 export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -35,7 +36,7 @@ export const FAQ: React.FC = () => {
   return (
     <section id="faq" className="py-16 sm:py-20 bg-[#F8F3E9] border-b border-[#EFE8DA]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="text-center max-w-xl mx-auto mb-10">
+        <ScrollReveal className="text-center max-w-xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
             Tire Suas Dúvidas
           </span>
@@ -45,14 +46,16 @@ export const FAQ: React.FC = () => {
           <p className="mt-3 text-sm text-[#5C675B]">
             Tudo o que você precisa saber sobre o cardápio, pedidos e horários de entrega.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div
+              <ScrollReveal
                 key={idx}
+                delay={idx * 0.05}
+                yOffset={16}
                 className="bg-white rounded-2xl border border-[#EFE8DA] overflow-hidden transition-all shadow-xs"
               >
                 <button
@@ -77,7 +80,7 @@ export const FAQ: React.FC = () => {
                     {faq.a}
                   </div>
                 )}
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

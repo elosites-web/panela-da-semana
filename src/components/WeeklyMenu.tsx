@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Sparkles, SlidersHorizontal, Eye, PlusCircle, Check, Leaf } from 'lucide-react';
+import { motion } from 'motion/react';
 import { WEEKLY_DISHES } from '../data/config';
 import { DayOfWeek, Dish, DishCategory } from '../types';
 import { formatCurrency } from '../utils/pricing';
+import { ScrollReveal } from './ScrollReveal';
 
 interface WeeklyMenuProps {
   onSelectDishToCustomize: (dish: Dish) => void;
@@ -43,7 +45,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
     <section id="cardapio" className="py-16 sm:py-20 bg-[#FFFCF7]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <ScrollReveal className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
             Cardápio Rotativo da Semana
           </span>
@@ -53,10 +55,10 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           <p className="mt-3 text-sm sm:text-base text-[#5C675B]">
             Navegue pelos dias da semana de segunda a sexta, personalize a proteína, escolha suas guarnições favoritas e adicione ao pedido.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Days Selector Tabs */}
-        <div className="mb-6">
+        <ScrollReveal delay={0.08} className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold uppercase tracking-wider text-[#344B35]">
               1. Selecione o dia da semana:
@@ -108,10 +110,13 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
               );
             })}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Categories Bar & Stories Callout */}
-        <div className="flex flex-wrap items-center justify-between gap-4 py-4 px-4 bg-[#F8F3E9] rounded-2xl border border-[#EFE8DA] mb-8">
+        <ScrollReveal
+          delay={0.12}
+          className="flex flex-wrap items-center justify-between gap-4 py-4 px-4 bg-[#F8F3E9] rounded-2xl border border-[#EFE8DA] mb-8"
+        >
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-[#344B35] flex items-center gap-1.5 mr-1">
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -140,7 +145,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
             <Sparkles className="w-3.5 h-3.5 text-[#C96F4A]" />
             <span>Ver fotos em modo Stories</span>
           </button>
-        </div>
+        </ScrollReveal>
 
         {/* Dish Cards Grid */}
         {filteredDishes.length === 0 ? (
@@ -166,9 +171,17 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredDishes.map((dish) => (
-              <article
+            {filteredDishes.map((dish, idx) => (
+              <motion.article
                 key={dish.id}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 'some' }}
+                transition={{
+                  duration: 0.5,
+                  delay: Math.min(idx * 0.08, 0.32),
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="bg-white rounded-3xl border border-[#EFE8DA] overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col group"
               >
                 {/* Photo container */}
@@ -276,7 +289,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                     </button>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         )}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowDown, Sparkles, CheckCircle2, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
 import { BRAND_CONFIG } from '../data/config';
 
 interface HeroProps {
@@ -16,14 +17,24 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
         {/* Prototype disclosure banner */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE8DA] border border-[#647A52]/20 text-[#344B35] text-xs font-semibold mb-6 tracking-wide shadow-xs">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE8DA] border border-[#647A52]/20 text-[#344B35] text-xs font-semibold mb-6 tracking-wide shadow-xs"
+        >
           <Sparkles className="w-3.5 h-3.5 text-[#C96F4A]" />
           <span>{BRAND_CONFIG.prototypeNotice}</span>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left copy column */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-7 space-y-6"
+          >
             <div className="space-y-3">
               <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A]">
                 Culinária afetiva & delivery inteligente
@@ -71,10 +82,15 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
                 <ChevronRight className="w-4 h-4 text-[#C96F4A]" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right hero image column */}
-          <div className="lg:col-span-5 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 relative"
+          >
             <div className="relative mx-auto max-w-md lg:max-w-none">
               {/* Image Frame with warm organic border */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-[#EFE8DA]">
@@ -106,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
                 ✨ Panela fresca todo dia
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

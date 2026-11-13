@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart, Sparkles, Shield, Leaf, Clock, Award } from 'lucide-react';
 import { ADDITIONAL_DISHES_PORTFOLIO } from '../data/config';
+import { ScrollReveal } from './ScrollReveal';
 
 export const BrandValues: React.FC = () => {
   const pillars = [
@@ -30,7 +31,7 @@ export const BrandValues: React.FC = () => {
     <section id="diferenciais" className="py-16 sm:py-24 bg-[#FFFCF7]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Title */}
-        <div className="max-w-2xl mb-12 sm:mb-16">
+        <ScrollReveal className="max-w-2xl mb-12 sm:mb-16">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
             Nossos Princípios na Cozinha
           </span>
@@ -40,15 +41,16 @@ export const BrandValues: React.FC = () => {
           <p className="mt-3 text-sm sm:text-base text-[#5C675B]">
             A Panela da Semana nasceu para resolver o dilema entre comida rápida sem valor nutricional e o cansaço de cozinhar todos os dias.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Pillars Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {pillars.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <ScrollReveal
                 key={idx}
+                delay={idx * 0.08}
                 className="bg-[#F8F3E9] p-6 rounded-3xl border border-[#EFE8DA] space-y-3"
               >
                 <div className="w-10 h-10 rounded-2xl bg-[#344B35] text-[#F8F3E9] flex items-center justify-center">
@@ -60,14 +62,14 @@ export const BrandValues: React.FC = () => {
                 <p className="text-xs sm:text-sm text-[#5C675B] leading-relaxed">
                   {item.desc}
                 </p>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
 
         {/* Gallery of Complementary Prepared Dishes */}
         <div className="bg-[#344B35] rounded-3xl p-6 sm:p-10 text-white relative overflow-hidden">
-          <div className="relative z-10 max-w-xl mb-8">
+          <ScrollReveal className="relative z-10 max-w-xl mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-1">
               Galeria da Cozinha
             </span>
@@ -77,12 +79,13 @@ export const BrandValues: React.FC = () => {
             <p className="text-xs sm:text-sm text-[#EFE8DA] mt-2">
               Desde o feijão com caldo espesso até os vegetais no ponto exato de cozimento.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative z-10">
-            {ADDITIONAL_DISHES_PORTFOLIO.map((dish) => (
-              <div
+            {ADDITIONAL_DISHES_PORTFOLIO.map((dish, idx) => (
+              <ScrollReveal
                 key={dish.id}
+                delay={idx * 0.08}
                 className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/15 flex flex-col group hover:bg-white/15 transition-all"
               >
                 <div className="aspect-4/3 overflow-hidden">
@@ -106,7 +109,7 @@ export const BrandValues: React.FC = () => {
                     Ilustração fotográfica do cardápio
                   </span>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Clock, MapPin, Sparkles, Heart } from 'lucide-react';
 import { BRAND_CONFIG } from '../data/config';
+import { ScrollReveal } from './ScrollReveal';
 
 interface FooterProps {
   onScrollToTop: () => void;
@@ -10,7 +11,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu }) => {
   return (
     <footer className="bg-[#252B24] text-[#F8F3E9] pt-14 pb-10 border-t border-[#344B35]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <ScrollReveal yOffset={20} className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10">
           {/* Brand Info */}
@@ -135,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu })
             <span>para a mesa brasileira.</span>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </footer>
   );
 };

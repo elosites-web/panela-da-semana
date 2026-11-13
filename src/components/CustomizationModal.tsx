@@ -11,22 +11,29 @@ interface CustomizationModalProps {
   onAddToCart: (item: CartItem) => void;
 }
 
-export const CustomizationModal: React.FC<CustomizationModalProps> = ({
+interface CustomizationModalContentProps {
+  dish: Dish;
+  onClose: () => void;
+  onAddToCart: (item: CartItem) => void;
+}
+
+const CustomizationModalContent: React.FC<CustomizationModalContentProps> = ({
   dish,
-  isOpen,
   onClose,
   onAddToCart,
 }) => {
-  if (!isOpen || !dish) return null;
-
   const [selectedSize, setSelectedSize] = useState<DishSize>('medium');
-  const [selectedProtein, setSelectedProtein] = useState<string>('');
-  const [selectedSides, setSelectedSides] = useState<string[]>([]);
+  const [selectedProtein, setSelectedProtein] = useState<string>(
+    () => dish.allowedProteins[0]?.name || ''
+  );
+  const [selectedSides, setSelectedSides] = useState<string[]>(() =>
+    dish.allowedSides.slice(0, 2).map((s) => s.name)
+  );
   const [selectedExtraIds, setSelectedExtraIds] = useState<string[]>([]);
   const [observation, setObservation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Initialize defaults on dish open
+  // Reset defaults whenever the dish prop changes
   useEffect(() => {
     setSelectedSize('medium');
     setSelectedProtein(dish.allowedProteins[0]?.name || '');
@@ -38,7 +45,7 @@ export const CustomizationModal: React.FC<CustomizationModalProps> = ({
     setErrorMessage('');
   }, [dish]);
 
-  // Handle escape key
+  // Handle escape key while modal content is mounted
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -388,5 +395,23 @@ export const CustomizationModal: React.FC<CustomizationModalProps> = ({
         </div>
       </div>
     </div>
+  );
+};
+
+export const CustomizationModal: React.FC<CustomizationModalProps> = ({
+  dish,
+  isOpen,
+  onClose,
+  onAddToCart,
+}) => {
+  if (!isOpen || !dish) return null;
+
+  return (
+    <CustomizationModalContent
+      key={dish.id}
+      dish={dish}
+      onClose={onClose}
+      onAddToCart={onAddToCart}
+    />
   );
 };
