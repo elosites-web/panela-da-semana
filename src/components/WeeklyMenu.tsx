@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, SlidersHorizontal, Eye, PlusCircle, Check, Leaf } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { WEEKLY_DISHES } from '../data/config';
 import { DayOfWeek, Dish, DishCategory } from '../types';
 import { formatCurrency } from '../utils/pricing';
@@ -22,7 +22,7 @@ const DAYS_OF_WEEK: { key: DayOfWeek; label: string; short: string; dayTag: stri
 const CATEGORIES: { key: DishCategory; label: string }[] = [
   { key: 'todos', label: 'Todos os Pratos' },
   { key: 'tradicionais', label: 'Tradicionais' },
-  { key: 'leves', label: 'Leves & Saudáveis' },
+  { key: 'leves', label: 'Leves' },
   { key: 'vegetarianos', label: 'Vegetarianos' },
 ];
 

@@ -14,11 +14,16 @@ import { BRAND_CONFIG, WEEKLY_DISHES } from './data/config';
 import { CartItem, Dish } from './types';
 import { calculateCartTotals, formatCurrency } from './utils/pricing';
 import { ShoppingBag, ArrowRight, BookOpen, Sparkles } from 'lucide-react';
-import { MotionConfig } from 'motion/react';
+import { motion, MotionConfig } from 'framer-motion';
 import { ScrollReveal } from './components/ScrollReveal';
 import { CartToast, CartToastData } from './components/CartToast';
 
 const CART_STORAGE_KEY = 'panela_da_semana_cart_v1';
+const SECTION_VIEWPORT = { once: true, amount: 'some' as const };
+const SECTION_TRANSITION = {
+  duration: 0.5,
+  ease: [0.22, 1, 0.36, 1] as const,
+};
 
 export default function App() {
   // Cart state persisted to localStorage
@@ -133,41 +138,83 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <Hero
-          onScrollToMenu={handleScrollToMenu}
-          onOpenStories={() => {
-            setStoriesInitialDishId(WEEKLY_DISHES[0].id);
-            setIsStoriesOpen(true);
-          }}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <Hero
+            onScrollToMenu={handleScrollToMenu}
+            onOpenStories={() => {
+              setStoriesInitialDishId(WEEKLY_DISHES[0].id);
+              setIsStoriesOpen(true);
+            }}
+          />
+        </motion.div>
 
         {/* Weekly Menu Section */}
-        <WeeklyMenu
-          onSelectDishToCustomize={(dish) => setSelectedDishToCustomize(dish)}
-          onOpenDishStories={handleOpenDishStories}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <WeeklyMenu
+            onSelectDishToCustomize={(dish) => setSelectedDishToCustomize(dish)}
+            onOpenDishStories={handleOpenDishStories}
+          />
+        </motion.div>
 
         {/* How It Works */}
-        <HowItWorks />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <HowItWorks />
+        </motion.div>
 
         {/* Brand Values & Photographic Portfolio */}
-        <BrandValues />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <BrandValues />
+        </motion.div>
 
         {/* FAQ */}
-        <FAQ />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <FAQ />
+        </motion.div>
 
         {/* In-app guide and editability banner */}
-        <section className="py-12 bg-[#F8F3E9] border-t border-[#EFE8DA]">
-          <ScrollReveal className="max-w-4xl mx-auto px-4 text-center">
-            <button
-              onClick={() => setIsDocModalOpen(true)}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white border border-[#EFE8DA] text-xs sm:text-sm font-bold text-[#344B35] hover:bg-[#EFE8DA] shadow-xs transition-all cursor-pointer"
-            >
-              <BookOpen className="w-4 h-4 text-[#C96F4A]" />
-              <span>Manual do Proprietário: Como editar pratos, preços e WhatsApp</span>
-            </button>
-          </ScrollReveal>
-        </section>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={SECTION_VIEWPORT}
+          transition={SECTION_TRANSITION}
+        >
+          <section className="py-12 bg-[#F8F3E9] border-t border-[#EFE8DA]">
+            <ScrollReveal className="max-w-4xl mx-auto px-4 text-center">
+              <button
+                onClick={() => setIsDocModalOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white border border-[#EFE8DA] text-xs sm:text-sm font-bold text-[#344B35] hover:bg-[#EFE8DA] shadow-xs transition-all cursor-pointer"
+              >
+                <BookOpen className="w-4 h-4 text-[#C96F4A]" />
+                <span>Manual do Proprietário: Como editar pratos, preços e WhatsApp</span>
+              </button>
+            </ScrollReveal>
+          </section>
+        </motion.div>
       </main>
 
       {/* Sticky Mobile Floating Cart Bar */}

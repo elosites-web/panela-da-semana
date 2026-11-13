@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { CheckCircle2, X } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export interface CartToastData {
   id: number;

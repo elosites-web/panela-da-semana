@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowDown, Sparkles, CheckCircle2, ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { BRAND_CONFIG } from '../data/config';
 
 interface HeroProps {
@@ -37,7 +37,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
           >
             <div className="space-y-3">
               <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A]">
-                Culinária afetiva & delivery inteligente
+                Experiência de cardápio digital semanal
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#252B24] tracking-tight leading-[1.12]">
                 Seu almoço da semana começa aqui.
@@ -45,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
             </div>
 
             <p className="text-base sm:text-lg text-[#5C675B] leading-relaxed max-w-xl">
-              Proposta de cardápio semanal pensada para levar praticidade e comida de verdade à rotina. Explore as sugestões ilustrativas de pratos e simule seu pedido.
+              Uma proposta de cardápio digital semanal pensada para tornar a escolha do almoço mais prática e intuitiva. Navegue pelas sugestões ilustrativas de segunda a sexta, personalize seus pratos e monte seu pedido em poucos cliques.
             </p>
 
             {/* Feature highlights */}
@@ -56,7 +56,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => 
               </div>
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
-                <span>Opções nos tamanhos M e G</span>
+                <span>Personalização nos tamanhos M e G</span>
               </div>
               <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs p-2.5 rounded-xl border border-[#EFE8DA]">
                 <CheckCircle2 className="w-4 h-4 text-[#C96F4A] shrink-0" />
