@@ -10,7 +10,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onScrollToMenu, onOpenStories }) => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#F8F3E9] via-[#FFFCF7] to-[#FFFCF7] pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-[#EFE8DA]">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#F8F3E9]/72 via-[#FFFCF7]/55 to-[#FFFCF7]/55 pt-8 pb-16 lg:pt-14 lg:pb-24 border-b border-[#EFE8DA]">
       {/* Decorative subtle texture/glow */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C96F4A]/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-12 left-10 w-72 h-72 bg-[#647A52]/10 rounded-full blur-3xl pointer-events-none" />

@@ -42,7 +42,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
   });
 
   return (
-    <section id="cardapio" className="py-16 sm:py-20 bg-[#FFFCF7]">
+    <section id="cardapio" className="py-16 sm:py-20 bg-[#FFFCF7]/55">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <ScrollReveal className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">

@@ -10,7 +10,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onScrollToTop, onScrollToMenu }) => {
   return (
-    <footer className="bg-[#252B24] text-[#F8F3E9] pt-14 pb-10 border-t border-[#344B35]">
+    <footer className="relative z-10 bg-[#252B24] text-[#F8F3E9] pt-14 pb-10 border-t border-[#344B35]">
       <ScrollReveal yOffset={20} className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10">

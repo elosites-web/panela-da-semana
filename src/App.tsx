@@ -17,6 +17,7 @@ import { ShoppingBag, ArrowRight, BookOpen, Sparkles } from 'lucide-react';
 import { motion, MotionConfig } from 'framer-motion';
 import { ScrollReveal } from './components/ScrollReveal';
 import { CartToast, CartToastData } from './components/CartToast';
+import { AtmosphericBackground } from './components/AtmosphericBackground';
 
 const CART_STORAGE_KEY = 'panela_da_semana_cart_v1';
 const SECTION_VIEWPORT = { once: true, amount: 'some' as const };
@@ -122,7 +123,9 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-[#FFFCF7] text-[#252B24] selection:bg-[#C96F4A] selection:text-white">
+      <div className="relative min-h-screen flex flex-col bg-[#FFFCF7] text-[#252B24] selection:bg-[#C96F4A] selection:text-white">
+      <AtmosphericBackground />
+
       {/* Header */}
       <Header
         cartItemCount={totalQuantity}
@@ -136,7 +139,7 @@ export default function App() {
       />
 
       {/* Main Content */}
-      <main className="flex-1">
+      <main className="relative z-10 flex-1">
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -203,7 +206,7 @@ export default function App() {
           viewport={SECTION_VIEWPORT}
           transition={SECTION_TRANSITION}
         >
-          <section className="py-12 bg-[#F8F3E9] border-t border-[#EFE8DA]">
+          <section className="py-12 bg-[#F8F3E9]/68 border-t border-[#EFE8DA]">
             <ScrollReveal className="max-w-4xl mx-auto px-4 text-center">
               <button
                 onClick={() => setIsDocModalOpen(true)}

@@ -28,7 +28,7 @@ export const BrandValues: React.FC = () => {
   ];
 
   return (
-    <section id="diferenciais" className="py-16 sm:py-24 bg-[#FFFCF7]">
+    <section id="diferenciais" className="py-16 sm:py-24 bg-[#FFFCF7]/55">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Title */}
         <ScrollReveal className="max-w-2xl mb-12 sm:mb-16">

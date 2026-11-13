@@ -34,7 +34,7 @@ export const FAQ: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-[#F8F3E9] border-b border-[#EFE8DA]">
+    <section id="faq" className="py-16 sm:py-20 bg-[#F8F3E9]/68 border-b border-[#EFE8DA]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <ScrollReveal className="text-center max-w-xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">

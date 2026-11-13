@@ -35,7 +35,7 @@ export const HowItWorks: React.FC = () => {
   ];
 
   return (
-    <section id="como-funciona" className="py-16 sm:py-20 bg-[#F8F3E9] border-y border-[#EFE8DA]">
+    <section id="como-funciona" className="py-16 sm:py-20 bg-[#F8F3E9]/68 border-y border-[#EFE8DA]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <ScrollReveal className="text-center max-w-xl mx-auto mb-12">
           <span className="text-xs font-bold uppercase tracking-widest text-[#C96F4A] block mb-2">
